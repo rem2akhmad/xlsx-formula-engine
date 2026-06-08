@@ -1,6 +1,6 @@
 # xlsx-formula-engine
 
-A minimal Kotlin library for evaluating formulas from `.xlsx` files without Excel/LibreOffice and without Apache POI.
+A minimal zero-dependency Kotlin library for evaluating formulas from `.xlsx` files without Excel, LibreOffice, Apache POI, or any external runtime dependencies.
 
 Disclaimer: this engine is not a full Excel-compatible runtime; verify results before using them in production or financial decisions. The author disclaims any responsibility for damages or losses resulting from its use.
 
