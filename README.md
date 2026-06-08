@@ -2,6 +2,8 @@
 
 A minimal Kotlin library for evaluating formulas from `.xlsx` files without Excel/LibreOffice and without Apache POI.
 
+Disclaimer: this engine is not a full Excel-compatible runtime; verify results before using them in production or financial decisions. The author disclaims any responsibility for damages or losses resulting from its use.
+
 ## Scope and Limitations
 
 - `.xlsx` files are read directly through `ZIP + XML (StAX)`.
