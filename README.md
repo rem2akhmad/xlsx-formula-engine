@@ -38,6 +38,39 @@ val colA = engine.evaluateColumn("Sheet1", "A")
 val all = engine.evaluateAll()
 ```
 
+## Adding Functions
+
+To add another Excel-style function, implement `FormulaFunctionHandler` and register it in `FunctionRegistry`.
+
+Example: add `DOUBLE(value)`, which returns the numeric argument multiplied by two.
+
+```kotlin
+internal class DoubleFunction : FormulaFunctionHandler {
+    override fun evaluate(
+        context: FunctionEvaluationContext,
+        currentSheet: String,
+        args: List<FormulaNode>
+    ): EvalValue {
+        if (args.size != 1) {
+            return EvalValue.Scalar(CellValue.ErrorValue(ErrorCodes.VALUE))
+        }
+
+        val number = context.evalScalar(currentSheet, args[0]).asNumberOrNull()
+            ?: return EvalValue.Scalar(CellValue.ErrorValue(ErrorCodes.VALUE))
+
+        return EvalValue.Scalar(CellValue.NumberValue(number * 2.0))
+    }
+}
+```
+
+Then add it to `FunctionRegistry`:
+
+```kotlin
+"DOUBLE" to DoubleFunction()
+```
+
+After registering it, formulas such as `=DOUBLE(A1)` can be parsed and evaluated. Add regression tests for new functions and update the supported-function list in this README.
+
 ## Build
 
 ```bash
